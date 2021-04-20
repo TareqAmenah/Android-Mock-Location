@@ -5,6 +5,7 @@ import com.github.warren_bank.mock_location.data_model.LocPoint;
 import com.github.warren_bank.mock_location.service.looper.LocationThreadManager;
 import com.github.warren_bank.mock_location.ui.MainActivity;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -25,6 +26,8 @@ public class LocationService extends Service {
     private final static String ACTION_PREFS          = "SHARED_PREFS_CHANGE";
     private final static String EXTRA_ORIGIN_LAT      = "ORIGIN_LAT";
     private final static String EXTRA_ORIGIN_LON      = "ORIGIN_LON";
+    private final static String EXTRA_ORIGIN_ALT      = "ORIGIN_ALT";
+    private final static String EXTRA_ORIGIN_ACC      = "ORIGIN_ACC";
     private final static String EXTRA_DESTINATION_LAT = "DESTINATION_LAT";
     private final static String EXTRA_DESTINATION_LON = "DESTINATION_LON";
     private final static String EXTRA_TRIP_DURATION   = "TRIP_DURATION";
@@ -113,6 +116,7 @@ public class LocationService extends Service {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.O)
     private Notification getNotification() {
         Notification notification  = (Build.VERSION.SDK_INT >= 26)
             ? (new Notification.Builder(/* context= */ LocationService.this, /* channelId= */ getNotificationChannelId())).build()
@@ -235,6 +239,8 @@ public class LocationService extends Service {
 
         intent.putExtra(EXTRA_ORIGIN_LAT, origin.getLatitude());
         intent.putExtra(EXTRA_ORIGIN_LON, origin.getLongitude());
+        intent.putExtra(EXTRA_ORIGIN_ALT, origin.getAltitude());
+        intent.putExtra(EXTRA_ORIGIN_ACC, origin.getAccuracy());
 
         if (is_trip) {
             intent.putExtra(EXTRA_DESTINATION_LAT, destination.getLatitude());

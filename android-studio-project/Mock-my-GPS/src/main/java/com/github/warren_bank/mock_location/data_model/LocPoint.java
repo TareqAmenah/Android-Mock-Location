@@ -6,6 +6,8 @@ package com.github.warren_bank.mock_location.data_model;
 public class LocPoint {
     private double mLatitude;
     private double mLongitude;
+    private double mAltitude;
+    private double mAccuracy;
 
     public LocPoint(LocPoint locPoint) {
         mLatitude = locPoint.getLatitude();
@@ -17,11 +19,13 @@ public class LocPoint {
         mLongitude = longitude;
     }
 
-    public LocPoint(String text) throws NumberFormatException {
+    public LocPoint(String text, double alt, double acc) throws NumberFormatException {
         String[] parts = text.split(",");
         if (parts.length == 2) {
             mLatitude  = Double.parseDouble(parts[0].trim());
             mLongitude = Double.parseDouble(parts[1].trim());
+            mAltitude = alt;
+            mAccuracy = acc;
         }
         else {
             throw new NumberFormatException("expected: latitude,longitude");
@@ -34,6 +38,14 @@ public class LocPoint {
 
     public double getLongitude() {
         return mLongitude;
+    }
+
+    public double getAltitude() {
+        return mAltitude;
+    }
+
+    public double getAccuracy() {
+        return mAccuracy;
     }
 
     public void setLatitude(double latitude) {

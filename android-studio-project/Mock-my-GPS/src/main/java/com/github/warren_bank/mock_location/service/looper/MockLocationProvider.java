@@ -3,6 +3,7 @@ package com.github.warren_bank.mock_location.service.looper;
 // copied from:
 //   https://github.com/mcastillof/FakeTraveler/blob/v1.6/app/src/main/java/cl/coders/faketraveler/MockLocationProvider.java
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
@@ -20,6 +21,7 @@ public class MockLocationProvider {
      * @param ctx  context
      * @return Void
      */
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
     public MockLocationProvider(String name, Context ctx) {
         this.providerName = name;
         this.ctx = ctx;

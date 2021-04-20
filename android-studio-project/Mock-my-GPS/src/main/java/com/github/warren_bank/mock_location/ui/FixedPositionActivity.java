@@ -20,6 +20,8 @@ public class FixedPositionActivity extends RuntimePermissionsActivity {
     private LocPoint originalLoc;
 
     private TextView input_fixed_position;
+    private TextView input_fixed_altitude;
+    private TextView input_fixed_accuracy;
     private Button   button_toggle_state;
     private Button   button_update;
 
@@ -31,6 +33,8 @@ public class FixedPositionActivity extends RuntimePermissionsActivity {
         originalLoc = SharedPrefs.getTripOrigin(FixedPositionActivity.this);
 
         input_fixed_position = (TextView) findViewById(R.id.input_fixed_position);
+        input_fixed_altitude = (TextView) findViewById(R.id.input_fixed_altitude);
+        input_fixed_accuracy = (TextView) findViewById(R.id.input_fixed_accuracy);
         button_toggle_state  = (Button)   findViewById(R.id.button_toggle_state);
         button_update        = (Button)   findViewById(R.id.button_update);
 
@@ -42,14 +46,14 @@ public class FixedPositionActivity extends RuntimePermissionsActivity {
 
                 try {
                     String fixed_position = s.toString();
-                    LocPoint modifiedLoc  = new LocPoint(fixed_position);
-
-                    if (originalLoc.equals(modifiedLoc)) {
-                        button_update.setVisibility(View.GONE);
-                    }
-                    else {
-                        button_update.setVisibility(View.VISIBLE);
-                    }
+//                    LocPoint modifiedLoc  = new LocPoint(fixed_position);
+//
+//                    if (originalLoc.equals(modifiedLoc)) {
+//                        button_update.setVisibility(View.GONE);
+//                    }
+//                    else {
+//                        button_update.setVisibility(View.VISIBLE);
+//                    }
                 }
                 catch(Exception e) {}
             }
@@ -148,7 +152,9 @@ public class FixedPositionActivity extends RuntimePermissionsActivity {
         }
         else {
             String fixed_position = input_fixed_position.getText().toString();
-            LocPoint modifiedLoc  = new LocPoint(fixed_position);
+            double fixed_altitude = Double.valueOf(input_fixed_altitude.getText().toString());
+            double fixed_accuracy = Double.valueOf(input_fixed_accuracy.getText().toString());
+            LocPoint modifiedLoc  = new LocPoint(fixed_position, fixed_altitude, fixed_accuracy);
 
             LocationService.doStart(FixedPositionActivity.this, true, modifiedLoc, null, 0);
 
