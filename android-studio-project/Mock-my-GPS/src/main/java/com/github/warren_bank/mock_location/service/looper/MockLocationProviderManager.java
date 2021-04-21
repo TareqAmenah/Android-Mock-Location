@@ -47,10 +47,10 @@ public class MockLocationProviderManager {
      * @param lat latitude
      * @param lon longitude
      */
-    static void exec(double lat, double lon) {
+    static void exec(double lat, double lon, double altitude, double accuracy) {
         if (mockNetwork != null) {
             try {
-                mockNetwork.pushLocation(lat, lon);
+                mockNetwork.pushLocation(lat, lon, altitude, accuracy);
             }
             catch (Exception e) {
              // stopMockingLocationNetwork();
@@ -59,7 +59,7 @@ public class MockLocationProviderManager {
 
         if (mockGps != null) {
             try {
-                mockGps.pushLocation(lat, lon);
+                mockGps.pushLocation(lat, lon, altitude, accuracy);
             }
             catch (Exception e) {
              // stopMockingLocationGps();

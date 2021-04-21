@@ -8,6 +8,8 @@ public final class BookmarkItem {
     public String title;
     public double lat;
     public double lon;
+    public double alt;
+    public double acc;
 
     public BookmarkItem(String title, double lat, double lon) {
         this.title = title;
@@ -21,7 +23,7 @@ public final class BookmarkItem {
     }
 
     public LocPoint toPoint() {
-        return new LocPoint(lat, lon);
+        return new LocPoint(lat, lon, alt, acc);
     }
 
     // =======

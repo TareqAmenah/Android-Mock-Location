@@ -12,12 +12,22 @@ public class LocPoint {
     public LocPoint(LocPoint locPoint) {
         mLatitude = locPoint.getLatitude();
         mLongitude = locPoint.getLongitude();
+        mAltitude = locPoint.getAltitude();
+        mAccuracy = locPoint.getAccuracy();
+    }
+
+    public LocPoint(double latitude, double longitude, double altitude, double accuracy) {
+        mLatitude = latitude;
+        mLongitude = longitude;
+        mAltitude = altitude;
+        mAccuracy = accuracy;
     }
 
     public LocPoint(double latitude, double longitude) {
         mLatitude = latitude;
         mLongitude = longitude;
     }
+
 
     public LocPoint(String text, double alt, double acc) throws NumberFormatException {
         String[] parts = text.split(",");
@@ -26,6 +36,17 @@ public class LocPoint {
             mLongitude = Double.parseDouble(parts[1].trim());
             mAltitude = alt;
             mAccuracy = acc;
+        }
+        else {
+            throw new NumberFormatException("expected: latitude,longitude");
+        }
+    }
+
+    public LocPoint(String text) throws NumberFormatException {
+        String[] parts = text.split(",");
+        if (parts.length == 2) {
+            mLatitude  = Double.parseDouble(parts[0].trim());
+            mLongitude = Double.parseDouble(parts[1].trim());
         }
         else {
             throw new NumberFormatException("expected: latitude,longitude");

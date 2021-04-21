@@ -59,7 +59,7 @@ public class LocationThread extends HandlerThread {
         public void run() {
             LocPoint locPoint = mLocationThreadManager.getUpdateLocPoint();
             if (locPoint != null) {
-                MockLocationProviderManager.exec(locPoint.getLatitude(), locPoint.getLongitude());
+                MockLocationProviderManager.exec(locPoint.getLatitude(), locPoint.getLongitude(), locPoint.getAltitude(), locPoint.getAccuracy());
             }
             if (mLocationThreadManager.shouldContinue()) {
                 mHandler.postDelayed(mUpdateLocation, mTimeInterval);

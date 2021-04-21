@@ -45,19 +45,20 @@ public class MockLocationProvider {
      * @param lon longitude
      * @return Void
      */
-    public void pushLocation(double lat, double lon) {
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
+    public void pushLocation(double lat, double lon, double altitude, double accuracy) {
         LocationManager lm = (LocationManager) ctx.getSystemService(
                 Context.LOCATION_SERVICE);
 
         Location mockLocation = new Location(providerName);
         mockLocation.setLatitude(lat);
         mockLocation.setLongitude(lon);
-        mockLocation.setAltitude(3F);
+        mockLocation.setAltitude(altitude);
+        mockLocation.setAccuracy((float) accuracy);
         mockLocation.setTime(System.currentTimeMillis());
         //mockLocation.setAccuracy(16F);
         mockLocation.setSpeed(0.01F);
         mockLocation.setBearing(1F);
-        mockLocation.setAccuracy(3F);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mockLocation.setBearingAccuracyDegrees(0.1F);
         }
@@ -78,6 +79,7 @@ public class MockLocationProvider {
      *
      * @return Void
      */
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
     public void shutdown() {
         LocationManager lm = (LocationManager) ctx.getSystemService(
                 Context.LOCATION_SERVICE);

@@ -204,6 +204,8 @@ public class LocationService extends Service {
     private LocPoint processIntentExtras(Intent intent) {
         double origin_lat      = intent.getDoubleExtra(EXTRA_ORIGIN_LAT,      2000.0);
         double origin_lon      = intent.getDoubleExtra(EXTRA_ORIGIN_LON,      2000.0);
+        double origin_alt      = intent.getDoubleExtra(EXTRA_ORIGIN_ALT,      600.0);
+        double origin_acc      = intent.getDoubleExtra(EXTRA_ORIGIN_ACC,      4.0);
         double destination_lat = intent.getDoubleExtra(EXTRA_DESTINATION_LAT, 2000.0);
         double destination_lon = intent.getDoubleExtra(EXTRA_DESTINATION_LON, 2000.0);
         int    trip_duration   = intent.getIntExtra(EXTRA_TRIP_DURATION,      0);
@@ -211,13 +213,13 @@ public class LocationService extends Service {
         if ((origin_lat > 1000) || (origin_lon > 1000))
             return null;
 
-        LocPoint origin = new LocPoint(origin_lat, origin_lon);
+        LocPoint origin = new LocPoint(origin_lat, origin_lon ,origin_alt, origin_acc);
         LTM.jumpToLocation(origin);
 
         if ((destination_lat > 1000) || (destination_lon > 1000) || (trip_duration <= 0))
             return origin;
 
-        LocPoint destination = new LocPoint(destination_lat, destination_lon);
+        LocPoint destination = new LocPoint(destination_lat, destination_lon, origin_alt, origin_acc);
         LTM.flyToLocation(destination, trip_duration);
         return origin;
     }
